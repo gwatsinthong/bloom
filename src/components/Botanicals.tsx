@@ -91,26 +91,26 @@ export default function Botanicals() {
           Every ingredient is chosen for clarity, calm, and gentle uplift.
         </motion.p>
 
-        <div className="botanical-grid mt-20 grid grid-cols-2 gap-x-8 gap-y-16 md:grid-cols-4 md:gap-x-12">
+        <div className="botanical-grid mx-auto mt-20 grid max-w-4xl grid-cols-2 gap-x-8 gap-y-14 md:grid-cols-4 md:gap-x-10">
           {BOTANICALS.map((b) => (
             <div key={b.name} className="botanical-card">
               <motion.div
                 whileHover={{ y: -8, scale: 1.03 }}
                 transition={{ type: "spring", stiffness: 220, damping: 18 }}
-                className="botanical-bob relative mx-auto w-full max-w-[300px]"
+                className="botanical-bob relative mx-auto w-full max-w-[210px]"
               >
                 <Image
                   src={b.img}
                   alt=""
-                  sizes="300px"
+                  sizes="210px"
                   className="w-full drop-shadow-[0_24px_50px_rgba(140,100,150,0.25)]"
                 />
                 {/* the glass spans 13%–88% of the artwork; this sits in its lower third */}
-                <h3 className="absolute inset-x-[12%] bottom-[24%] font-display text-[clamp(1.05rem,1.4vw,1.4rem)] leading-snug text-ink/90">
+                <h3 className="absolute inset-x-[12%] bottom-[24%] font-display text-[clamp(0.9rem,1.2vw,1.2rem)] leading-snug text-ink/90">
                   {b.name}
                 </h3>
               </motion.div>
-              <div className="botanical-shadow mx-auto mt-2 h-4 w-32 rounded-[50%] bg-[#5d4a66]/35 blur-[7px]" aria-hidden />
+              <div className="botanical-shadow mx-auto mt-2 h-3.5 w-24 rounded-[50%] bg-[#5d4a66]/35 blur-[7px]" aria-hidden />
             </div>
           ))}
         </div>

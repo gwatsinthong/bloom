@@ -11,7 +11,6 @@ import ChooseBloom from "@/components/ChooseBloom";
 import Marquee from "@/components/Marquee";
 import Ritual from "@/components/Ritual";
 import Testimonial from "@/components/Testimonial";
-import FinalCta from "@/components/FinalCta";
 
 export default function Home() {
   return (
@@ -30,7 +29,6 @@ export default function Home() {
         <Marquee />
         <Ritual />
         <Testimonial />
-        <FinalCta />
       </main>
     </>
   );
