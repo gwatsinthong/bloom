@@ -29,13 +29,21 @@ type PetalsProps = {
   count?: number;
   seed?: number;
   className?: string;
+  /** Continuous downward drift with sway instead of an in-place float */
+  falling?: boolean;
 };
 
 /**
  * A drifting field of translucent flower petals. Each petal idles on a
- * slow float loop and parallaxes at its own depth as the page scrolls.
+ * slow float loop — or, in `falling` mode, tumbles down the section and
+ * wraps back to the top — and parallaxes at its own depth on scroll.
  */
-export default function Petals({ count = 14, seed = 7, className = "" }: PetalsProps) {
+export default function Petals({
+  count = 14,
+  seed = 7,
+  className = "",
+  falling = false,
+}: PetalsProps) {
   const ref = useRef<HTMLDivElement>(null);
   const rand = mulberry32(seed);
 
@@ -58,20 +66,46 @@ export default function Petals({ count = 14, seed = 7, className = "" }: PetalsP
     () => {
       const nodes = gsap.utils.toArray<HTMLElement>(".petal", ref.current);
 
+      const fieldHeight = ref.current?.offsetHeight ?? 800;
+
       nodes.forEach((node) => {
         const depth = Number(node.dataset.depth);
-        const drift = gsap.utils.random(14, 34);
 
-        gsap.to(node, {
-          y: `-=${drift}`,
-          x: `+=${gsap.utils.random(-18, 18)}`,
-          rotation: `+=${gsap.utils.random(-25, 25)}`,
-          duration: Number(node.dataset.duration),
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: gsap.utils.random(0, 3),
-        });
+        if (falling) {
+          // Tumble down the field and wrap back over the top; deeper
+          // (larger) petals fall faster. Negative delay desyncs the loops.
+          const fallDuration = gsap.utils.random(16, 30) / (0.5 + depth);
+          gsap.to(node, {
+            y: `+=${fieldHeight + 260}`,
+            duration: fallDuration,
+            ease: "none",
+            repeat: -1,
+            delay: -gsap.utils.random(0, fallDuration),
+            modifiers: {
+              y: gsap.utils.unitize(gsap.utils.wrap(-180, fieldHeight + 80)),
+            },
+          });
+          gsap.to(node, {
+            x: `+=${gsap.utils.random(30, 70)}`,
+            rotation: `+=${gsap.utils.random(-90, 90)}`,
+            duration: gsap.utils.random(2.5, 5),
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: gsap.utils.random(0, 3),
+          });
+        } else {
+          gsap.to(node, {
+            y: `-=${gsap.utils.random(14, 34)}`,
+            x: `+=${gsap.utils.random(-18, 18)}`,
+            rotation: `+=${gsap.utils.random(-25, 25)}`,
+            duration: Number(node.dataset.duration),
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: gsap.utils.random(0, 3),
+          });
+        }
 
         gsap.to(node, {
           yPercent: -120 * depth,

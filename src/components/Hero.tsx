@@ -65,12 +65,16 @@ export default function Hero() {
       const canX = gsap.quickTo(".hero-can", "x", { duration: 0.8, ease: "power3" });
       const canY = gsap.quickTo(".hero-can", "y", { duration: 0.8, ease: "power3" });
       const bgX = gsap.quickTo(".hero-bg", "x", { duration: 1.2, ease: "power3" });
+      const petalsX = gsap.quickTo(".hero-petals", "x", { duration: 1.0, ease: "power3" });
+      const petalsY = gsap.quickTo(".hero-petals", "y", { duration: 1.0, ease: "power3" });
       const onMove = (e: MouseEvent) => {
         const nx = e.clientX / window.innerWidth - 0.5;
         const ny = e.clientY / window.innerHeight - 0.5;
         canX(nx * 26);
         canY(ny * 18);
         bgX(nx * -14);
+        petalsX(nx * 46);
+        petalsY(ny * 28);
       };
       window.addEventListener("mousemove", onMove);
 
@@ -146,7 +150,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <Petals count={16} seed={11} />
+      <Petals count={20} seed={11} falling className="hero-petals" />
       <Bubbles count={14} className="inset-x-[8%] bottom-[6%] h-[34%]" />
 
       {/* can + its reflection */}

@@ -101,11 +101,9 @@ export default function Botanicals() {
                   sizes="210px"
                   className="w-full drop-shadow-[0_24px_50px_rgba(140,100,150,0.25)]"
                 />
-                <span className="absolute inset-x-0 bottom-[13%] font-display text-lg text-ink/90">
-                  {b.name}
-                </span>
               </motion.div>
-              <div className="botanical-shadow mx-auto mt-4 h-3 w-28 rounded-[50%] bg-[#9b7fae]/35 blur-[6px]" aria-hidden />
+              <div className="botanical-shadow mx-auto mt-1 h-3 w-24 rounded-[50%] bg-[#9b7fae]/35 blur-[6px]" aria-hidden />
+              <h3 className="mt-5 font-display text-xl text-ink/90">{b.name}</h3>
             </div>
           ))}
         </div>
