@@ -41,7 +41,7 @@ export default function ChooseBloom() {
   );
 
   return (
-    <section id="choose" ref={ref} className="relative bg-cream py-28 md:py-36">
+    <section id="choose" ref={ref} data-bg="#fbf9f7" className="relative py-28 md:py-36">
       <div className="mx-auto max-w-6xl px-6 text-center md:px-10">
         <SplitReveal className="font-display text-[clamp(2.4rem,4.5vw,3.6rem)] leading-[1.06] text-ink">
           Choose Your Bloom.

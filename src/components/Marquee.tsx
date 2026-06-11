@@ -65,7 +65,7 @@ export default function Marquee() {
   );
 
   return (
-    <div ref={ref} className="overflow-hidden bg-cream py-10 md:py-14" aria-hidden>
+    <div ref={ref} className="overflow-hidden py-10 md:py-14" aria-hidden>
       <div className="marquee-track flex w-max">
         <Strip />
         <Strip />

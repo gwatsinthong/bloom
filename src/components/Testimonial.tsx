@@ -52,6 +52,18 @@ export default function Testimonial() {
         }
       );
 
+      // The dark card rises and settles over the light section above it
+      gsap.from(ref.current, {
+        y: 110,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top 96%",
+          end: "top 45%",
+          scrub: 1,
+        },
+      });
+
       // Dunes drift upward at different depths as the section passes
       gsap.to(".test-dune-l", {
         yPercent: -22,
@@ -72,7 +84,7 @@ export default function Testimonial() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden py-32 text-[#efe7f2] md:py-44"
+      className="relative z-10 -mt-10 overflow-hidden rounded-t-[3rem] py-32 text-[#efe7f2] md:rounded-t-[4.5rem] md:py-44"
       style={{
         background:
           "linear-gradient(180deg, #241c2e 0%, #2e2238 35%, #43304c 70%, #5d4360 100%)",

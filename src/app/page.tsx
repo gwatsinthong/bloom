@@ -1,4 +1,5 @@
 import SmoothScroll from "@/components/SmoothScroll";
+import BgMorph from "@/components/BgMorph";
 import Preloader from "@/components/Preloader";
 import Cursor from "@/components/Cursor";
 import ScrollBloom from "@/components/ScrollBloom";
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <>
       <SmoothScroll />
+      <BgMorph />
       <Preloader />
       <Cursor />
       <ScrollBloom />

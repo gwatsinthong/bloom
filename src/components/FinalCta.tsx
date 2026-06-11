@@ -8,7 +8,6 @@ import { useGSAP } from "@gsap/react";
 import MagneticButton from "./MagneticButton";
 import SplitReveal from "./SplitReveal";
 import Petals from "./Petals";
-import Wordmark from "./Wordmark";
 import RollText from "./RollText";
 import footerBg from "../../resources/footer.png";
 
@@ -89,7 +88,7 @@ export default function FinalCta() {
           <br />
           Longer Conversations.
         </SplitReveal>
-        <p className="mt-7 text-[15px] text-ink/70 md:text-base">
+        <p className="mt-7 text-[17px] text-ink/75 md:text-[20px]">
           Bloom isn&rsquo;t just a drink. It&rsquo;s a shift in pace.
         </p>
         <div className="mt-10">
@@ -98,20 +97,19 @@ export default function FinalCta() {
       </div>
 
       {/* footer */}
-      <footer className="relative z-10 pb-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-6">
-          <Wordmark className="h-6 opacity-90" />
-          <nav className="flex flex-wrap items-center justify-center gap-x-2 text-sm text-ink/75">
+      <footer className="relative z-10 pb-12">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6">
+          <nav className="flex flex-wrap items-center justify-center gap-x-3 text-[16px] text-ink/80">
             {LINKS.map((link, i) => (
-              <span key={link} className="flex items-center gap-2">
+              <span key={link} className="flex items-center gap-3">
                 <a href="#" className="group px-1 py-1 transition-colors hover:text-ink">
                   <RollText>{link}</RollText>
                 </a>
-                {i < LINKS.length - 1 && <span className="text-ink/30">·</span>}
+                {i < LINKS.length - 1 && <span className="text-ink/40">·</span>}
               </span>
             ))}
           </nav>
-          <p className="text-xs text-ink/50">Copyright © 2026 Bloom</p>
+          <p className="text-[14px] text-ink/55">Copyright © 2026 Bloom</p>
         </div>
       </footer>
     </section>

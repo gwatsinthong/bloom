@@ -44,7 +44,7 @@ export default function MagneticButton({
       onPointerLeave={reset}
       style={{ x: sx, y: sy }}
       whileTap={{ scale: 0.96 }}
-      className={`group inline-flex items-center gap-3 rounded-full bg-lime px-7 py-3.5 text-[15px] font-medium text-ink shadow-[0_8px_30px_rgba(216,242,110,0.45)] transition-shadow hover:shadow-[0_10px_40px_rgba(216,242,110,0.7)] ${className}`}
+      className={`group inline-flex items-center gap-3.5 rounded-full bg-lime px-8 py-4 text-[16px] font-medium text-ink shadow-[0_8px_30px_rgba(216,242,110,0.45)] transition-shadow hover:shadow-[0_10px_40px_rgba(216,242,110,0.7)] ${className}`}
     >
       <span>{children}</span>
       <svg

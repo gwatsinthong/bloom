@@ -187,7 +187,7 @@ export default function Hero() {
           as="p"
           immediate
           delay={0.75}
-          className="mt-6 max-w-md text-[17px] leading-relaxed text-ink/80 md:text-lg"
+          className="mt-7 max-w-xl text-[18px] leading-relaxed text-ink/85 md:text-[21px]"
         >
           Crafted with floral extracts and micro-botanical blends to elevate calm, focus, and
           refreshment.
@@ -198,7 +198,7 @@ export default function Hero() {
       </div>
 
       {/* fade into next section */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-cream" aria-hidden />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#f4f2f3]" aria-hidden />
     </section>
   );
 }
