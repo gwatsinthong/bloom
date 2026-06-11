@@ -76,7 +76,7 @@ export default function Nav() {
 
         {/* center logo */}
         <a href="#" className="absolute left-1/2 -translate-x-1/2" aria-label="Bloom home">
-          <Wordmark className="text-[26px] tracking-[0.08em] md:text-[28px]" />
+          <Wordmark className="h-6 md:h-7" />
         </a>
 
         {/* right icons */}

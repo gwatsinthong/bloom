@@ -1,13 +1,15 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import Can from "./Can";
 import Petals from "./Petals";
 import MagneticButton from "./MagneticButton";
 import SplitReveal from "./SplitReveal";
+import heroBg from "../../resources/hero.png";
+import heroCan from "../../resources/hero-can.png";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -26,15 +28,15 @@ export default function Hero() {
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      // Can entrance + perpetual hover
+      // Can entrance + perpetual hover (the art is pre-tilted, so no base rotate)
       gsap.fromTo(
         ".hero-can",
-        { y: 60, opacity: 0, rotate: -2, scale: 0.92 },
-        { y: 0, opacity: 1, rotate: -12, scale: 1, duration: 1.6, ease: "power3.out", delay: 0.25 }
+        { y: 60, opacity: 0, scale: 0.92 },
+        { y: 0, opacity: 1, scale: 1, duration: 1.6, ease: "power3.out", delay: 0.25 }
       );
       gsap.to(".hero-can-float", {
         y: -18,
-        rotation: 2,
+        rotation: 3,
         duration: 3.4,
         ease: "sine.inOut",
         yoyo: true,
@@ -52,20 +54,20 @@ export default function Hero() {
         repeat: -1,
       });
 
-      // Pointer parallax — can and hills drift toward the cursor at different depths
+      // Pointer parallax — can and backdrop drift toward the cursor at different depths
       const canX = gsap.quickTo(".hero-can", "x", { duration: 0.8, ease: "power3" });
       const canY = gsap.quickTo(".hero-can", "y", { duration: 0.8, ease: "power3" });
-      const hillsX = gsap.quickTo(".hero-hills", "x", { duration: 1.2, ease: "power3" });
+      const bgX = gsap.quickTo(".hero-bg", "x", { duration: 1.2, ease: "power3" });
       const onMove = (e: MouseEvent) => {
         const nx = e.clientX / window.innerWidth - 0.5;
         const ny = e.clientY / window.innerHeight - 0.5;
         canX(nx * 26);
         canY(ny * 18);
-        hillsX(nx * -14);
+        bgX(nx * -14);
       };
       window.addEventListener("mousemove", onMove);
 
-      // Scroll choreography — sky lingers while the copy lifts away
+      // Scroll choreography — the dunes linger while the copy lifts away
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ref.current,
@@ -76,7 +78,7 @@ export default function Hero() {
       });
       tl.to(".hero-can-scroll", { yPercent: 36, scale: 0.92, ease: "none" }, 0)
         .to(".hero-copy", { yPercent: -40, opacity: 0, ease: "none" }, 0)
-        .to(".hero-hills", { yPercent: 12, ease: "none" }, 0);
+        .to(".hero-bg", { yPercent: 6, ease: "none" }, 0);
 
       return () => window.removeEventListener("mousemove", onMove);
     },
@@ -84,14 +86,20 @@ export default function Hero() {
   );
 
   return (
-    <section
-      ref={ref}
-      className="relative flex min-h-svh flex-col overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(180deg, #aa9ed4 0%, #cbb3dd 26%, #ecc8da 48%, #e3c4dd 62%, #c8bce4 82%, #d4cdec 100%)",
-      }}
-    >
+    <section ref={ref} className="relative flex min-h-svh flex-col overflow-hidden bg-[#cbb3dd]">
+      {/* dunes backdrop, slightly oversized so parallax never reveals edges */}
+      <div className="hero-bg absolute -inset-[3%]" aria-hidden>
+        <Image
+          src={heroBg}
+          alt=""
+          fill
+          preload
+          placeholder="blur"
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
+
       {/* stars */}
       <div aria-hidden>
         {STARS.map((s, i) => (
@@ -115,42 +123,11 @@ export default function Hero() {
         className="hero-glow pointer-events-none absolute left-1/2 top-[34%] h-[60vmin] w-[60vmin] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(255,250,235,0.95) 0%, rgba(255,236,225,0.5) 38%, rgba(255,236,225,0) 70%)",
+            "radial-gradient(circle, rgba(255,250,235,0.85) 0%, rgba(255,236,225,0.4) 38%, rgba(255,236,225,0) 70%)",
         }}
         aria-hidden
       />
 
-      {/* dunes / hills */}
-      <div className="hero-hills pointer-events-none absolute inset-0" aria-hidden>
-        <div
-          className="absolute -left-[12%] top-[30%] h-[55%] w-[75%] rounded-[50%] blur-2xl"
-          style={{ background: "linear-gradient(160deg, #f0b9d2 0%, #e2a9cc 60%, rgba(226,169,204,0) 100%)", opacity: 0.85 }}
-        />
-        <div
-          className="absolute -right-[15%] top-[26%] h-[58%] w-[80%] rounded-[50%] blur-2xl"
-          style={{ background: "linear-gradient(200deg, #eec2dc 0%, #dfa9cf 55%, rgba(223,169,207,0) 100%)", opacity: 0.9 }}
-        />
-        <div
-          className="absolute left-[10%] top-[48%] h-[40%] w-[85%] rounded-[50%] blur-3xl"
-          style={{ background: "linear-gradient(180deg, #f5cede 0%, rgba(245,206,222,0) 100%)", opacity: 0.7 }}
-        />
-      </div>
-
-      {/* water */}
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%]"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(214,202,236,0) 0%, rgba(214,202,236,0.75) 18%, #cfc6e9 55%, #d8d2ee 100%)",
-        }}
-        aria-hidden
-      />
-      {/* reflection shimmer */}
-      <div
-        className="mist pointer-events-none absolute bottom-[18%] left-1/2 h-24 w-[60%] -translate-x-1/2 rounded-[50%] blur-2xl"
-        style={{ background: "radial-gradient(ellipse, rgba(255,248,240,0.65), rgba(255,248,240,0))" }}
-        aria-hidden
-      />
       {/* drifting mist bands */}
       <div
         className="mist pointer-events-none absolute bottom-[8%] left-[-10%] h-16 w-[70%] rounded-[50%] blur-3xl bg-white/40"
@@ -165,13 +142,20 @@ export default function Hero() {
       <Petals count={16} seed={11} />
 
       {/* can + its reflection */}
-      <div className="hero-can-scroll pointer-events-none absolute left-1/2 top-[10%] z-10 -translate-x-1/2">
+      <div className="hero-can-scroll pointer-events-none absolute left-1/2 top-[9%] z-10 -translate-x-1/2">
         <div className="hero-can opacity-0">
           <div className="hero-can-float">
-            <Can className="w-44 drop-shadow-[0_30px_60px_rgba(120,90,150,0.35)] md:w-56" />
-            <Can
-              className="w-44 -scale-y-100 opacity-15 blur-[2px] md:w-56 [mask-image:linear-gradient(180deg,transparent_30%,black_100%)]"
+            <Image
+              src={heroCan}
+              alt="Bloom botanical sparkling water can"
+              preload
+              className="w-52 drop-shadow-[0_30px_60px_rgba(120,90,150,0.35)] md:w-64"
+            />
+            <Image
+              src={heroCan}
+              alt=""
               aria-hidden
+              className="w-52 -scale-y-100 opacity-15 blur-[2px] md:w-64 [mask-image:linear-gradient(180deg,transparent_30%,black_100%)]"
             />
           </div>
         </div>

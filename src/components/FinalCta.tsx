@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -8,6 +9,7 @@ import MagneticButton from "./MagneticButton";
 import SplitReveal from "./SplitReveal";
 import Petals from "./Petals";
 import Wordmark from "./Wordmark";
+import footerBg from "../../resources/footer.png";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -23,10 +25,10 @@ export default function FinalCta() {
       // Dawn glow rises as the section scrolls in
       gsap.fromTo(
         ".dawn-glow",
-        { yPercent: 30, opacity: 0.4 },
+        { yPercent: 30, opacity: 0.3 },
         {
           yPercent: 0,
-          opacity: 1,
+          opacity: 0.8,
           ease: "none",
           scrollTrigger: {
             trigger: ref.current,
@@ -44,31 +46,34 @@ export default function FinalCta() {
     <section
       id="contact"
       ref={ref}
-      className="relative flex min-h-svh flex-col overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(180deg, #5d4360 0%, #7c5a78 18%, #b78a9b 42%, #e2b3b8 62%, #f2cfc3 78%, #ead4d8 100%)",
-      }}
+      className="relative flex min-h-svh flex-col overflow-hidden bg-[#b78a9b]"
     >
-      {/* rising sun */}
+      <Image
+        src={footerBg}
+        alt=""
+        fill
+        sizes="100vw"
+        placeholder="blur"
+        className="object-cover"
+        aria-hidden
+      />
+
+      {/* blend down from the dark testimonial section */}
       <div
-        className="dawn-glow pointer-events-none absolute left-1/2 top-[48%] h-[70vmin] w-[70vmin] -translate-x-1/2 rounded-full blur-2xl"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[22%]"
+        style={{ background: "linear-gradient(180deg, #5d4360 0%, rgba(93,67,96,0) 100%)" }}
+        aria-hidden
+      />
+
+      {/* rising sun accent over the baked-in glow */}
+      <div
+        className="dawn-glow pointer-events-none absolute left-1/2 top-[42%] h-[60vmin] w-[60vmin] -translate-x-1/2 rounded-full blur-2xl"
         style={{
           background:
-            "radial-gradient(circle, rgba(255,240,214,0.9) 0%, rgba(255,214,190,0.45) 40%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,240,214,0.7) 0%, rgba(255,214,190,0.3) 40%, transparent 70%)",
         }}
         aria-hidden
       />
-      {/* still water */}
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%]"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(214,180,190,0) 0%, rgba(208,170,185,0.7) 40%, #cdb3c8 100%)",
-        }}
-        aria-hidden
-      />
-      <div className="mist pointer-events-none absolute bottom-[16%] left-1/2 h-20 w-[70%] -translate-x-1/2 rounded-[50%] bg-white/30 blur-3xl" aria-hidden />
 
       <Petals count={8} seed={67} className="opacity-50" />
 
@@ -94,7 +99,7 @@ export default function FinalCta() {
       {/* footer */}
       <footer className="relative z-10 pb-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-6">
-          <Wordmark className="text-2xl tracking-[0.08em] text-ink/90" />
+          <Wordmark className="h-6 opacity-90" />
           <nav className="flex flex-wrap items-center justify-center gap-x-2 text-sm text-ink/75">
             {LINKS.map((link, i) => (
               <span key={link} className="flex items-center gap-2">
