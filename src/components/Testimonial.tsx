@@ -52,6 +52,18 @@ export default function Testimonial() {
         }
       );
 
+      // Dunes drift upward at different depths as the section passes
+      gsap.to(".test-dune-l", {
+        yPercent: -22,
+        ease: "none",
+        scrollTrigger: { trigger: ref.current, start: "top bottom", end: "bottom top", scrub: 1 },
+      });
+      gsap.to(".test-dune-r", {
+        yPercent: -34,
+        ease: "none",
+        scrollTrigger: { trigger: ref.current, start: "top bottom", end: "bottom top", scrub: 1 },
+      });
+
       return () => split.revert();
     },
     { scope: ref }
@@ -68,12 +80,12 @@ export default function Testimonial() {
     >
       {/* dark dunes */}
       <div
-        className="pointer-events-none absolute -left-[10%] bottom-[-20%] h-[70%] w-[70%] rounded-[50%] blur-3xl"
+        className="test-dune-l pointer-events-none absolute -left-[10%] bottom-[-20%] h-[70%] w-[70%] rounded-[50%] blur-3xl"
         style={{ background: "radial-gradient(ellipse, rgba(120,80,120,0.5), transparent 70%)" }}
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -right-[10%] bottom-[-25%] h-[75%] w-[75%] rounded-[50%] blur-3xl"
+        className="test-dune-r pointer-events-none absolute -right-[10%] bottom-[-25%] h-[75%] w-[75%] rounded-[50%] blur-3xl"
         style={{ background: "radial-gradient(ellipse, rgba(150,100,130,0.45), transparent 70%)" }}
         aria-hidden
       />

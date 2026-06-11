@@ -6,8 +6,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Petals from "./Petals";
+import Bubbles from "./Bubbles";
 import MagneticButton from "./MagneticButton";
 import SplitReveal from "./SplitReveal";
+import { preloaderDone } from "@/lib/loader";
 import heroBg from "../../resources/hero.png";
 import heroCan from "../../resources/hero-can.png";
 
@@ -25,24 +27,29 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null);
 
   useGSAP(
-    () => {
+    (_, contextSafe) => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      // Can entrance + perpetual hover (the art is pre-tilted, so no base rotate)
-      gsap.fromTo(
-        ".hero-can",
-        { y: 60, opacity: 0, scale: 0.92 },
-        { y: 0, opacity: 1, scale: 1, duration: 1.6, ease: "power3.out", delay: 0.25 }
+      // Can entrance + perpetual hover, beginning the moment the curtain lifts
+      // (the art is pre-tilted, so no base rotate)
+      preloaderDone.then(
+        contextSafe!(() => {
+          gsap.fromTo(
+            ".hero-can",
+            { y: 60, opacity: 0, scale: 0.92 },
+            { y: 0, opacity: 1, scale: 1, duration: 1.6, ease: "power3.out", delay: 0.15 }
+          );
+          gsap.to(".hero-can-float", {
+            y: -18,
+            rotation: 3,
+            duration: 3.4,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: 1.7,
+          });
+        })
       );
-      gsap.to(".hero-can-float", {
-        y: -18,
-        rotation: 3,
-        duration: 3.4,
-        ease: "sine.inOut",
-        yoyo: true,
-        repeat: -1,
-        delay: 1.8,
-      });
 
       // Sun glow breathing
       gsap.to(".hero-glow", {
@@ -140,6 +147,7 @@ export default function Hero() {
       />
 
       <Petals count={16} seed={11} />
+      <Bubbles count={14} className="inset-x-[8%] bottom-[6%] h-[34%]" />
 
       {/* can + its reflection */}
       <div className="hero-can-scroll pointer-events-none absolute left-1/2 top-[9%] z-10 -translate-x-1/2">
@@ -166,7 +174,7 @@ export default function Hero() {
         <SplitReveal
           as="h1"
           immediate
-          delay={0.55}
+          delay={0.35}
           className="font-display w-full text-[clamp(2.6rem,5.4vw,5.6rem)] leading-[1.04] tracking-[-0.01em] text-ink"
         >
           Sparkling Botanicals for Modern Clarity
@@ -174,7 +182,7 @@ export default function Hero() {
         <SplitReveal
           as="p"
           immediate
-          delay={0.95}
+          delay={0.75}
           className="mt-6 max-w-md text-[17px] leading-relaxed text-ink/80 md:text-lg"
         >
           Crafted with floral extracts and micro-botanical blends to elevate calm, focus, and

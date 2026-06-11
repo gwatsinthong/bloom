@@ -1,23 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
 import Wordmark from "./Wordmark";
+import RollText from "./RollText";
+import { preloaderDone } from "@/lib/loader";
 
 const SHOP_ITEMS = ["Blossom Calm", "Citrus Clarity", "Lavender Lift"];
 
 export default function Nav() {
   const [shopOpen, setShopOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 40));
+  useEffect(() => {
+    preloaderDone.then(() => setReady(true));
+  }, []);
+
+  // Slip away on scroll down, glide back on scroll up
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setScrolled(y > 40);
+    setHidden(y > 350 && y > prev && !shopOpen);
+  });
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+      initial={{ y: -90, opacity: 0 }}
+      animate={!ready ? { y: -90, opacity: 0 } : hidden ? { y: -90, opacity: 1 } : { y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed inset-x-0 top-0 z-100 transition-colors duration-500 ${
         scrolled ? "bg-cream/70 backdrop-blur-xl shadow-[0_1px_0_rgba(34,28,40,0.06)]" : ""
       }`}
@@ -31,10 +44,10 @@ export default function Nav() {
             onMouseLeave={() => setShopOpen(false)}
           >
             <button
-              className="flex items-center gap-1.5 py-2 text-ink/90 transition-colors hover:text-ink"
+              className="group flex items-center gap-1.5 py-2 text-ink/90 transition-colors hover:text-ink"
               aria-expanded={shopOpen}
             >
-              Shop
+              <RollText>Shop</RollText>
               <svg
                 width="10"
                 height="6"
@@ -55,22 +68,30 @@ export default function Nav() {
                   transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   className="absolute left-0 top-full w-48 rounded-2xl bg-cream/95 p-2 shadow-[0_20px_50px_rgba(34,28,40,0.12)] ring-1 ring-ink/5 backdrop-blur-xl"
                 >
-                  {SHOP_ITEMS.map((item) => (
-                    <li key={item}>
+                  {SHOP_ITEMS.map((item, i) => (
+                    <motion.li
+                      key={item}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.06 * i, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    >
                       <a
                         href="#choose"
                         className="block rounded-xl px-4 py-2.5 text-sm text-ink/80 transition-colors hover:bg-ink/5 hover:text-ink"
                       >
                         {item}
                       </a>
-                    </li>
+                    </motion.li>
                   ))}
                 </motion.ul>
               )}
             </AnimatePresence>
           </div>
-          <a href="#contact" className="hidden py-2 text-ink/90 transition-colors hover:text-ink sm:block">
-            Contact
+          <a
+            href="#contact"
+            className="group hidden py-2 text-ink/90 transition-colors hover:text-ink sm:block"
+          >
+            <RollText>Contact</RollText>
           </a>
         </div>
 
@@ -81,18 +102,30 @@ export default function Nav() {
 
         {/* right icons */}
         <div className="flex items-center gap-5">
-          <a href="#" aria-label="Account" className="text-ink/80 transition-colors hover:text-ink">
+          <motion.a
+            href="#"
+            aria-label="Account"
+            className="text-ink/80 transition-colors hover:text-ink"
+            whileHover={{ scale: 1.15, rotate: -6 }}
+            whileTap={{ scale: 0.9 }}
+          >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
               <circle cx="10" cy="6.5" r="3.25" stroke="currentColor" strokeWidth="1.3" />
               <path d="M3.5 17c1-3.2 3.6-4.5 6.5-4.5s5.5 1.3 6.5 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
             </svg>
-          </a>
-          <a href="#" aria-label="Cart" className="text-ink/80 transition-colors hover:text-ink">
+          </motion.a>
+          <motion.a
+            href="#"
+            aria-label="Cart"
+            className="text-ink/80 transition-colors hover:text-ink"
+            whileHover={{ scale: 1.15, rotate: 6 }}
+            whileTap={{ scale: 0.9 }}
+          >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
               <path d="M4 6.5h12l-.9 10a1.5 1.5 0 0 1-1.5 1.4H6.4a1.5 1.5 0 0 1-1.5-1.4L4 6.5Z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
               <path d="M7 8.5v-3a3 3 0 0 1 6 0v3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
             </svg>
-          </a>
+          </motion.a>
         </div>
       </nav>
     </motion.header>

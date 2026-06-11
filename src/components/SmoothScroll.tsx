@@ -18,6 +18,7 @@ export default function SmoothScroll() {
       lerp: 0.1,
       smoothWheel: true,
     });
+    (window as { __lenis?: Lenis }).__lenis = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -30,6 +31,7 @@ export default function SmoothScroll() {
     return () => {
       gsap.ticker.remove(tick);
       lenis.destroy();
+      delete (window as { __lenis?: Lenis }).__lenis;
     };
   }, []);
 

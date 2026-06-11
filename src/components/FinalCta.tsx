@@ -9,6 +9,7 @@ import MagneticButton from "./MagneticButton";
 import SplitReveal from "./SplitReveal";
 import Petals from "./Petals";
 import Wordmark from "./Wordmark";
+import RollText from "./RollText";
 import footerBg from "../../resources/footer.png";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -103,8 +104,8 @@ export default function FinalCta() {
           <nav className="flex flex-wrap items-center justify-center gap-x-2 text-sm text-ink/75">
             {LINKS.map((link, i) => (
               <span key={link} className="flex items-center gap-2">
-                <a href="#" className="px-1 py-1 transition-colors hover:text-ink">
-                  {link}
+                <a href="#" className="group px-1 py-1 transition-colors hover:text-ink">
+                  <RollText>{link}</RollText>
                 </a>
                 {i < LINKS.length - 1 && <span className="text-ink/30">·</span>}
               </span>

@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { motion } from "motion/react";
 import SplitReveal from "./SplitReveal";
+import TiltCard from "./TiltCard";
 import blossomCalm from "../../resources/blossom.png";
 import citrusClarity from "../../resources/citruss.png";
 import lavenderLift from "../../resources/lavendar.png";
@@ -58,7 +59,7 @@ export default function ChooseBloom() {
         <div className="product-grid mt-16 grid gap-10 text-left md:grid-cols-3 md:gap-8">
           {PRODUCTS.map((p) => (
             <motion.a key={p.name} href="#" className="product-card group block" whileTap={{ scale: 0.98 }}>
-              <div className="relative aspect-[1600/1888] overflow-hidden rounded-3xl shadow-[0_30px_60px_rgba(120,90,150,0.16)] transition-shadow duration-500 group-hover:shadow-[0_40px_80px_rgba(120,90,150,0.28)]">
+              <TiltCard className="relative aspect-[1600/1888] overflow-hidden rounded-3xl shadow-[0_30px_60px_rgba(120,90,150,0.16)] transition-shadow duration-500 group-hover:shadow-[0_40px_80px_rgba(120,90,150,0.28)]">
                 <Image
                   src={p.img}
                   alt={`${p.name} — ${p.tagline}`}
@@ -72,7 +73,7 @@ export default function ChooseBloom() {
                   className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
                   aria-hidden
                 />
-              </div>
+              </TiltCard>
               <h3 className="font-display mt-5 text-2xl text-ink">{p.name}</h3>
               <p className="mt-1 text-sm text-ink-soft">{p.tagline}</p>
             </motion.a>

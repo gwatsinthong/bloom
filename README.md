@@ -16,6 +16,14 @@ backdrops — is rendered in pure SVG and CSS, no image assets.
 
 ## Highlights
 
+- Curtain preloader in the brand palette — letter-staggered wordmark,
+  000→100 counter, petal drift, curved-hem lift that gates every
+  entrance animation
+- Custom cursor (quick dot + lagging ring that blooms over links),
+  scroll-velocity-reactive serif marquee, rising carbonation bubbles,
+  3D pointer-tilt product cards, letter-roll link hovers, hide-on-scroll
+  nav, and a scroll-progress blossom that unfurls as you near the end
+
 - Hero with pointer-parallax can, breathing sun glow, twinkling stars,
   drifting mist, and scroll-scrubbed exit
 - Deterministic petal fields (seeded PRNG, SSR-safe) that idle-float and
