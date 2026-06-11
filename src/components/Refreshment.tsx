@@ -50,7 +50,7 @@ export default function Refreshment() {
     <section ref={ref} data-bg="#f4f2f3" className="relative py-28 md:py-40">
       <div className="mx-auto grid max-w-6xl items-center gap-16 px-6 md:grid-cols-2 md:px-10">
         {/* can */}
-        <div className="relative mx-auto w-60 md:w-72">
+        <div className="relative mx-auto w-72 md:w-96">
           <div
             className="absolute left-1/2 top-1/2 h-[130%] w-[130%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
             style={{ background: "radial-gradient(circle, rgba(232,200,225,0.5), rgba(232,200,225,0))" }}
@@ -60,7 +60,7 @@ export default function Refreshment() {
             <Image
               src={canStudio}
               alt="Bloom botanical sparkling water can"
-              sizes="(min-width: 768px) 18rem, 15rem"
+              sizes="(min-width: 768px) 24rem, 18rem"
               className="w-full drop-shadow-[0_40px_70px_rgba(120,90,150,0.28)]"
             />
           </div>
@@ -92,7 +92,14 @@ export default function Refreshment() {
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 + i * 0.12 }}
                 className="flex flex-col items-start gap-4"
               >
-                <Image src={f.icon} alt="" aria-hidden className="h-16 w-16 object-contain md:h-20 md:w-20" />
+                <motion.div
+                  initial={{ clipPath: "inset(100% 0 0 0)", scale: 0.75, opacity: 0 }}
+                  whileInView={{ clipPath: "inset(0% 0 0 0)", scale: 1, opacity: 1 }}
+                  viewport={{ once: true, margin: "-10%" }}
+                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: 0.2 + i * 0.12 }}
+                >
+                  <Image src={f.icon} alt="" aria-hidden className="h-16 w-16 object-contain md:h-20 md:w-20" />
+                </motion.div>
                 <span className="text-[15px] text-ink md:text-base">{f.title}</span>
               </motion.div>
             ))}

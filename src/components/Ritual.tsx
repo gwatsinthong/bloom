@@ -52,10 +52,17 @@ export default function Ritual() {
               className="flex flex-col items-center"
             >
               <motion.div
-                whileHover={{ scale: 1.12, rotate: -4 }}
-                transition={{ type: "spring", stiffness: 260, damping: 14 }}
+                initial={{ clipPath: "inset(100% 0 0 0)", scale: 0.65, opacity: 0 }}
+                whileInView={{ clipPath: "inset(0% 0 0 0)", scale: 1, opacity: 1 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.15 }}
               >
-                <Image src={s.icon} alt="" aria-hidden className="h-16 w-16 object-contain md:h-[76px] md:w-[76px]" />
+                <motion.div
+                  whileHover={{ scale: 1.12, rotate: -4 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 14 }}
+                >
+                  <Image src={s.icon} alt="" aria-hidden className="h-16 w-16 object-contain md:h-[76px] md:w-[76px]" />
+                </motion.div>
               </motion.div>
               <h3 className="font-display mt-6 text-[28px] text-ink md:text-[32px]">{s.title}</h3>
               <p className="mt-2.5 max-w-[300px] text-[15px] leading-relaxed text-ink/70 md:text-base">{s.copy}</p>

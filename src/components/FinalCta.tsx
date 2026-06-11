@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { motion } from "motion/react";
 import MagneticButton from "./MagneticButton";
 import SplitReveal from "./SplitReveal";
 import Petals from "./Petals";
@@ -75,7 +76,7 @@ export default function FinalCta() {
         aria-hidden
       />
 
-      <Petals count={8} seed={67} className="opacity-50" />
+      <Petals count={8} seed={67} falling className="opacity-50" />
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-1 flex-col items-center justify-center px-6 py-40 text-center">
         <SplitReveal
@@ -88,18 +89,36 @@ export default function FinalCta() {
           <br />
           Longer Conversations.
         </SplitReveal>
-        <p className="mt-7 text-[17px] text-ink/75 md:text-[20px]">
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          className="mt-7 text-[17px] text-ink/75 md:text-[20px]"
+        >
           Bloom isn&rsquo;t just a drink. It&rsquo;s a shift in pace.
-        </p>
-        <div className="mt-10">
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.94 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.38 }}
+          className="mt-10"
+        >
           <MagneticButton href="#choose">Experience It</MagneticButton>
-        </div>
+        </motion.div>
       </div>
 
       {/* footer */}
       <footer className="relative z-10 pb-12">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6">
-          <nav className="flex flex-wrap items-center justify-center gap-x-3 text-[16px] text-ink/80">
+          <motion.nav
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="flex flex-wrap items-center justify-center gap-x-3 text-[16px] text-ink/80"
+          >
             {LINKS.map((link, i) => (
               <span key={link} className="flex items-center gap-3">
                 <a href="#" className="group px-1 py-1 transition-colors hover:text-ink">
@@ -108,8 +127,16 @@ export default function FinalCta() {
                 {i < LINKS.length - 1 && <span className="text-ink/40">·</span>}
               </span>
             ))}
-          </nav>
-          <p className="text-[14px] text-ink/55">Copyright © 2026 Bloom</p>
+          </motion.nav>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.28 }}
+            className="text-[14px] text-ink/55"
+          >
+            Copyright © 2026 Bloom
+          </motion.p>
         </div>
       </footer>
     </section>

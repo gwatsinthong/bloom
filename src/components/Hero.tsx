@@ -154,7 +154,7 @@ export default function Hero() {
       <Bubbles count={14} className="inset-x-[8%] bottom-[6%] h-[34%]" />
 
       {/* can + its reflection */}
-      <div className="hero-can-scroll pointer-events-none absolute left-1/2 top-[9%] z-10 -translate-x-1/2">
+      <div className="hero-can-scroll pointer-events-none absolute left-1/2 top-[14%] z-10 -translate-x-1/2">
         <div className="hero-can opacity-0">
           <div className="hero-can-float">
             <Image
@@ -179,7 +179,7 @@ export default function Hero() {
           as="h1"
           immediate
           delay={0.35}
-          className="font-display w-full text-balance text-[clamp(2.4rem,4.7vw,4.9rem)] leading-[1.08] tracking-[-0.01em] text-ink"
+          className="font-display w-full text-balance text-[clamp(2rem,4vw,4.2rem)] leading-[1.08] tracking-[-0.01em] text-ink"
         >
           Sparkling Botanicals for Modern Clarity
         </SplitReveal>
