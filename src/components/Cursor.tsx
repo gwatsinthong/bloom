@@ -5,7 +5,7 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 
 /**
  * Soft cursor companion: a quick dot and a lagging ring that blooms
- * open over links and buttons. The native cursor stays visible.
+ * open over links and buttons. Hides the native cursor while active.
  * Skipped entirely on touch devices.
  */
 export default function Cursor() {
@@ -24,6 +24,7 @@ export default function Cursor() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!fine || reduced) return;
     setEnabled(true);
+    document.documentElement.classList.add("custom-cursor");
 
     const onMove = (e: MouseEvent) => {
       x.set(e.clientX);
@@ -37,6 +38,7 @@ export default function Cursor() {
     return () => {
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseover", onOver);
+      document.documentElement.classList.remove("custom-cursor");
     };
   }, [x, y]);
 

@@ -20,6 +20,25 @@ html.lenis body {
   scroll-behavior: auto !important;
 }
 
+/* Hide the browser scrollbar (scrolling still works) */
+html {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / legacy Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;                /* WebKit / Blink */
+}
+
+/* Hide the native cursor while the custom cursor is active */
+html.custom-cursor,
+html.custom-cursor * {
+  cursor: none !important;
+}
+
 body {
   background: var(--color-cream);
   color: var(--color-ink);
