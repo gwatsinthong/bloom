@@ -42,6 +42,16 @@ export default function SplitReveal({
         linesClass: "split-line-inner",
       });
 
+      // Unwrap the masks once the reveal lands so tight leading never
+      // clips descenders at rest.
+      let reverted = false;
+      const finish = () => {
+        if (!reverted) {
+          reverted = true;
+          split.revert();
+        }
+      };
+
       if (immediate) {
         gsap.set(split.lines, { yPercent: 110 });
         const play = contextSafe!(() => {
@@ -51,6 +61,7 @@ export default function SplitReveal({
             ease: "power4.out",
             stagger: 0.09,
             delay,
+            onComplete: finish,
           });
         });
         preloaderDone.then(play);
@@ -61,6 +72,7 @@ export default function SplitReveal({
           ease: "power4.out",
           stagger: 0.09,
           delay,
+          onComplete: finish,
           scrollTrigger: {
             trigger: ref.current,
             start: "top 85%",
@@ -69,7 +81,7 @@ export default function SplitReveal({
         });
       }
 
-      return () => split.revert();
+      return finish;
     },
     { scope: ref }
   );

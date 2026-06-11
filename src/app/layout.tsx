@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter } from "next/font/google";
+import { Hedvig_Letters_Serif } from "next/font/google";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+const hedvig = Hedvig_Letters_Serif({
+  variable: "--font-hedvig",
   weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -26,10 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${instrumentSerif.variable} ${inter.variable} antialiased`}
-    >
+    <html lang="en" className={`${hedvig.variable} antialiased`}>
       <body className="grain">{children}</body>
     </html>
   );

@@ -97,13 +97,16 @@ export default function Botanicals() {
               >
                 <Image
                   src={b.img}
-                  alt={b.name}
+                  alt=""
                   sizes="210px"
                   className="w-full drop-shadow-[0_24px_50px_rgba(140,100,150,0.25)]"
                 />
+                {/* the glass spans 13%–88% of the artwork, so 17% sits just inside the rim */}
+                <h3 className="absolute inset-x-[12%] bottom-[17%] font-display text-[17px] leading-snug text-ink/85">
+                  {b.name}
+                </h3>
               </motion.div>
               <div className="botanical-shadow mx-auto mt-1 h-3 w-24 rounded-[50%] bg-[#9b7fae]/35 blur-[6px]" aria-hidden />
-              <h3 className="mt-5 font-display text-xl text-ink/90">{b.name}</h3>
             </div>
           ))}
         </div>
